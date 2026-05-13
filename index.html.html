@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قائمة التحقق - المتسوق السري</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f8fa;
+  --surface:#ffffff;
+  --surface2:#f0f2f5;
+  --border:#e2e6ea;
+  --border2:#c8cdd4;
+  --text:#1a1d23;
+  --text2:#5a6270;
+  --text3:#9aa0aa;
+  --green:#17a86a;
+  --green-bg:#eaf8f2;
+  --green-border:#b3e8d2;
+  --red:#e03c3c;
+  --red-bg:#fef0f0;
+  --red-border:#f5c0c0;
+  --blue:#2563eb;
+  --blue-bg:#eff4ff;
+  --accent:#1e3a5f;
+  --accent2:#2e5c99;
+  --gold:#c9a84c;
+  --radius:10px;
+  --radius-lg:16px;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.10);
+}
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  direction:rtl;
+}
+
+/* HEADER */
+.top-bar{
+  background:linear-gradient(135deg,#1e3a5f 0%,#2e5c99 60%,#1e3a5f 100%);
+  padding:0;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 20px rgba(30,58,95,0.25);
+}
+.top-bar-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+}
+.logo-area{display:flex;align-items:center;gap:12px}
+.logo-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  border:1px solid rgba(255,255,255,0.2);
+}
+.logo-text{color:#fff;font-size:15px;font-weight:700;line-height:1.2}
+.logo-sub{color:rgba(255,255,255,0.6);font-size:11px;font-weight:400}
+.top-actions{display:flex;gap:8px}
+.btn-top{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);
+  color:#fff;border-radius:8px;
+  padding:8px 14px;font-size:12px;
+  cursor:pointer;font-family:'Cairo',sans-serif;
+  transition:background 0.2s;
+  display:flex;align-items:center;gap:6px;
+}
+.btn-top:hover{background:rgba(255,255,255,0.22)}
+.btn-top.gold{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn-top.gold:hover{background:#b8963f}
+
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:24px 16px 60px}
+
+/* PROGRESS HERO */
+.progress-hero{
+  background:var(--surface);
+  border-radius:var(--radius-lg);
+  padding:20px 24px;
+  margin-bottom:20px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.hero-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.hero-title{font-size:15px;font-weight:700;color:var(--accent)}
+.compliance-pct{font-size:32px;font-weight:700;color:var(--accent);line-height:1}
+.compliance-label{font-size:11px;color:var(--text2);margin-top:2px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat-box{
+  background:var(--surface2);border-radius:var(--radius);
+  padding:10px;text-align:center;
+}
+.stat-val{font-size:20px;font-weight:700;color:var(--text)}
+.stat-val.ok{color:var(--green)}
+.stat-val.fail{color:var(--red)}
+.stat-val.na{color:var(--text3)}
+.stat-lbl{font-size:11px;color:var(--text2);margin-top:2px}
+.prog-track{height:10px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--green),#22c97a);border-radius:5px;transition:width 0.4s cubic-bezier(.4,0,.2,1)}
+
+/* VISIT INFO */
+.visit-card{
+  background:var(--surface);border-radius:var(--radius-lg);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  padding:20px 24px;margin-bottom:20px;
+}
+.card-label{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px}
+.card-label::before{content:'';width:3px;height:16px;background:var(--gold);border-radius:2px;display:inline-block}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;color:var(--text2);font-weight:500}
+.field input{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:9px 12px;font-size:13px;
+  color:var(--text);font-family:'Cairo',sans-serif;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  outline:none;
+}
+.field input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(46,92,153,0.1)}
+
+/* SECTIONS */
+.section-card{
+  background:var(--surface);border-radius:var(--radius-lg);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  margin-bottom:12px;overflow:hidden;
+}
+.sec-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;cursor:pointer;
+  border-bottom:1px solid transparent;
+  transition:background 0.15s;
+  user-select:none;
+}
+.sec-header:hover{background:var(--surface2)}
+.sec-header.open{border-bottom-color:var(--border)}
+.sec-left{display:flex;align-items:center;gap:10px}
+.sec-num{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+.sec-title{font-size:13px;font-weight:600;color:var(--text)}
+.sec-right{display:flex;align-items:center;gap:10px}
+.badge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge-fail{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.chevron{color:var(--text3);font-size:14px;transition:transform 0.25s}
+.chevron.open{transform:rotate(180deg)}
+
+.sec-body{display:none;padding:0}
+.sec-body.open{display:block}
+
+.item-row{
+  display:grid;
+  grid-template-columns:28px 1fr auto auto auto 160px;
+  align-items:center;gap:8px;
+  padding:10px 18px;
+  border-bottom:1px solid var(--border);
+  transition:background 0.1s;
+}
+.item-row:last-child{border-bottom:none}
+.item-row:hover{background:#fafbfc}
+.item-n{font-size:11px;color:var(--text3);text-align:center;font-weight:600}
+.item-txt{font-size:13px;color:var(--text);line-height:1.5}
+.choice-btn{
+  border:1px solid var(--border2);border-radius:7px;
+  padding:5px 11px;font-size:11px;font-weight:600;
+  cursor:pointer;background:var(--surface);
+  color:var(--text2);font-family:'Cairo',sans-serif;
+  transition:all 0.15s;white-space:nowrap;
+}
+.choice-btn:hover{border-color:var(--accent2);color:var(--accent)}
+.choice-btn.a-ok{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.choice-btn.a-fail{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+.choice-btn.a-na{background:var(--surface2);color:var(--text2);border-color:var(--border2)}
+.note-inp{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:7px;padding:5px 10px;font-size:12px;
+  color:var(--text);font-family:'Cairo',sans-serif;width:100%;
+  outline:none;transition:border-color 0.2s;
+}
+.note-inp:focus{border-color:var(--accent2)}
+.note-inp::placeholder{color:var(--text3)}
+
+/* OTHER NOTES & TEAM */
+.extra-card{
+  background:var(--surface);border-radius:var(--radius-lg);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  padding:20px 24px;margin-bottom:12px;
+}
+.other-row{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.team-row{display:grid;grid-template-columns:24px 1fr 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.row-n{font-size:11px;color:var(--text3);text-align:center;font-weight:600}
+.th-row{display:grid;grid-template-columns:24px 1fr 1fr;gap:10px;margin-bottom:8px}
+.th{font-size:11px;color:var(--text2);font-weight:600;text-align:center}
+
+/* ACTIONS */
+.actions-bar{
+  display:flex;gap:10px;flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.btn-main{
+  border:1px solid var(--border2);border-radius:var(--radius);
+  padding:11px 20px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Cairo',sans-serif;
+  display:flex;align-items:center;gap:8px;
+  transition:all 0.2s;
+}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#162d4a}
+.btn-secondary{background:var(--surface);color:var(--text)}
+.btn-secondary:hover{background:var(--surface2)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:#b8963f}
+.btn-danger{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+.btn-danger:hover{background:#fde0e0}
+
+/* REPORT */
+.report-box{
+  background:var(--surface);border-radius:var(--radius-lg);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  padding:24px;margin-bottom:20px;
+  display:none;
+}
+.report-box.show{display:block}
+.report-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.report-txt{
+  font-family:'Tajawal',sans-serif;font-size:13px;
+  line-height:2;white-space:pre-wrap;color:var(--text);
+  background:var(--surface2);border-radius:var(--radius);
+  padding:16px;border:1px solid var(--border);
+  max-height:480px;overflow-y:auto;
+}
+.btn-copy{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;
+  cursor:pointer;font-family:'Cairo',sans-serif;color:var(--text);
+  transition:all 0.2s;
+}
+.btn-copy:hover{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px;color:var(--text3);font-size:11px}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--accent);color:#fff;padding:12px 24px;border-radius:10px;
+  font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);
+  transition:transform 0.3s cubic-bezier(.4,0,.2,1);z-index:999;
+  font-family:'Cairo',sans-serif;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .fields-grid{grid-template-columns:1fr}
+  .item-row{grid-template-columns:20px 1fr;row-gap:8px}
+  .item-row > .choice-btn, .item-row > .note-inp{grid-column:2}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .top-bar-inner{padding:10px 14px}
+  .main{padding:14px 10px 50px}
+  .th-row,.team-row{grid-template-columns:20px 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="logo-area">
+      <div class="logo-icon">🏥</div>
+      <div>
+        <div class="logo-text">المتسوق السري</div>
+        <div class="logo-sub">قائمة التحقق من الامتثال</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-top" onclick="generateReport()">📄 التقرير</button>
+      <button class="btn-top gold" onclick="printPage()">🖨️ طباعة</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PROGRESS HERO -->
+  <div class="progress-hero">
+    <div class="hero-row">
+      <div class="hero-title">نسبة الامتثال الإجمالية</div>
+      <div style="text-align:center">
+        <div class="compliance-pct" id="pct-val">0%</div>
+        <div class="compliance-label">من البنود المُقيَّمة</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">إجمالي البنود</div></div>
+      <div class="stat-box"><div class="stat-val ok" id="s-ok">0</div><div class="stat-lbl">✔ مطابق</div></div>
+      <div class="stat-box"><div class="stat-val fail" id="s-fail">0</div><div class="stat-lbl">✘ غير مطابق</div></div>
+      <div class="stat-box"><div class="stat-val na" id="s-na">0</div><div class="stat-lbl">لا ينطبق</div></div>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+  </div>
+
+  <!-- VISIT INFO -->
+  <div class="visit-card">
+    <div class="card-label">بيانات الزيارة</div>
+    <div class="fields-grid">
+      <div class="field"><label>المركز الصحي</label><input id="f-center" placeholder="اسم المركز..."></div>
+      <div class="field"><label>اليوم</label><input id="f-day" placeholder="مثال: الأحد"></div>
+      <div class="field"><label>التاريخ</label><input id="f-date" type="date"></div>
+    </div>
+  </div>
+
+  <!-- SECTIONS -->
+  <div id="sections-container"></div>
+
+  <!-- OTHER NOTES -->
+  <div class="extra-card">
+    <div class="card-label">ملاحظات أخرى</div>
+    <div id="other-notes-container"></div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="extra-card">
+    <div class="card-label">أعضاء الفريق الزائر</div>
+    <div class="th-row"><div></div><div class="th">الاسم</div><div class="th">التوقيع</div></div>
+    <div id="team-container"></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions-bar">
+    <button class="btn-main btn-primary" onclick="generateReport()">📄 عرض التقرير النهائي</button>
+    <button class="btn-main btn-gold" onclick="printPage()">🖨️ طباعة / PDF</button>
+    <button class="btn-main btn-secondary" onclick="resetAll()">🔄 إعادة تعيين</button>
+  </div>
+
+  <!-- REPORT -->
+  <div class="report-box" id="report-box">
+    <div class="report-header">
+      <div class="card-label" style="margin:0">التقرير النهائي</div>
+      <button class="btn-copy" id="copy-btn" onclick="copyReport()">📋 نسخ التقرير</button>
+    </div>
+    <div class="report-txt" id="report-txt"></div>
+  </div>
+
+  <div class="footer">
+    قطاع الصحة العامة بمحافظة الرس &mdash; وحدة الجودة &mdash; muntasir
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SECTIONS=[
+  {id:1,title:"الفناء الخارجي، مداخل المركز وصحة البيئة",items:[
+    "اللوحة الخارجية للمركز موجودة وبحالة جيدة",
+    "المواقف الخارجية للمراجعين وذوي الاحتياجات الخاصة كافية ومطابقة للمواصفات",
+    "النظافة الخارجية للمركز","النظافة الداخلية للمركز","سلامة الممرات","توفر الإضاءة الخارجية",
+    "توفر معلومات خدمات المركز بشكل واضح في مدخل المركز",
+    "لا توجد نهايات حادة أو مخاطر تعثر في الفناء الخارجي",
+    "الامتثال لسياسة منع التدخين (لا توجد أعقاب سجائر، توجد لوحة ممنوع التدخين وعليها الغرامة)",
+    "وجود علامات على مداخل ومواقف ذوي الاحتياجات الخاصة",
+    "وجود حواجز جانبية على مداخل ذوي الاحتياجات الخاصة",
+    "مستوى ميلان مداخل ذوي الاحتياجات الخاصة مطابق للمواصفات",
+    "خزانات المياه مغلقة","نظافة الجدران والأسقف","سلامة ونظافة النوافذ والزجاج"
+  ]},
+  {id:2,title:"قسم الأمن والسلامة",items:[
+    "يتم فحص طفايات الحريق دورياً","عدد طفايات الحريق مناسب لمساحة المركز ونطاق خدماته",
+    "يتم فحص جهاز إنذار الحريق دورياً","لوحة تحكم نظام إنذار الحريق تعمل بشكل صحيح",
+    "كاشفات الدخان (موجودة، مرقمة، تعمل)","توجد علامات توضح مخارج الطوارئ",
+    "توجد أجسام تعيق حركة المراجعين للمركز","نقاط التجمع موجودة ومطابقة للمواصفات",
+    "وجود مخطط لمخارج الطوارئ","يتم تخزين أسطوانات الأوكسجين بطريقة آمنة وصحيحة",
+    "المواد الخطرة (محصورة ومعزولة)"
+  ]},
+  {id:3,title:"قسم الصيانة والمرافق العامة",items:[
+    "توجد لوحات إرشادية كافية","مستوى الإضاءة جيد","عدم وجود أثاث رجيع بالمركز",
+    "عدم وجود أسلاك كهربائية مكشوفة","عدم وجود تصدعات بالمبنى","عدم وجود ملاحظات في السباكة",
+    "عدم وجود ملاحظات في التوصيلات الكهربائية",
+    "توجد دورة مياه لذوي الاحتياجات الخاصة مطابقة للمواصفات","نظافة الأرضيات ودورات المياه",
+    "جميع شاشات التثقيف الصحي بالمركز تعمل","أماكن انتظار المراجعين منظمة وكافية",
+    "كراسي الانتظار مطابقة للمواصفات (سليمة، مريحة)","جميع أجهزة التكييف تعمل وتتم صيانتها دورياً",
+    "عدم وجود أجهزة معطلة"
+  ]},
+  {id:4,title:"قسم الصيدلية والمستودع الطبي واللقاحات",items:[
+    "يتم قياس درجة حرارة المستودع","يوجد تخزين علوي أو سفلي أكثر من 40سم",
+    "يتم حصر وعزل وتخزين المواد الخطرة في دواليب مغلقة",
+    "يتم تدوين تواريخ الصلاحية على أرفف المواد المخزنة بالمستودع",
+    "يتم تدوين تاريخ الصلاحية على الأدوية بالصيدلية",
+    "يتم تطبيق سياسة الأدوية المتشابهة في اللفظ والنطق بالصيدلية",
+    "وجود قائمة بانتهاء صلاحية الأدوية","يتم مراقبة الأدوية المخدرة بصورة يومية",
+    "توجد أدوية منتهية الصلاحية","مراقبة درجة حرارة الثلاجات",
+    "عدم وجود لقاحات منتهية الصلاحية في الثلاجات","عدم وجود أدوية منتهية الصلاحية في الثلاجات",
+    "ترتيب الأدوية واللقاحات بشكل صحيح داخل الثلاجة (FEFO)",
+    "وجود آلية واضحة للتعامل مع الأدوية واللقاحات قريبة الانتهاء"
+  ]},
+  {id:5,title:"قسم مكافحة العدوى",items:[
+    "توفر معقمات الأيدي في صالات الانتظار والعيادات وجميعها تعمل",
+    "فرز ونقل وتخزين النفايات الطبية بطريقة صحيحة",
+    "وجود علامة الخطر البيولوجي على غرفة النفايات وعلى عربات نقل النفايات",
+    "مكيف غرفة النفايات يعمل ويتم تسجيل درجة حرارة الغرفة",
+    "وجود أدوات الوقاية الشخصية في جميع العيادات وفي المختبر والصيدلية",
+    "وجود أدوات التعامل مع الانسكابات في جميع العيادات وفي المختبر والصيدلية",
+    "وجود اتفاقية تعقيم سارية أو استخدام معدات في الضماد ذات استخدام لمرة واحدة",
+    "توفر حاويات الأدوات الحادة","وجود جدول تنظيف موثق وموقّع في دورات المياه"
+  ]},
+  {id:6,title:"قسم التمريض والخدمات الطبية",items:[
+    "وجود علامة الجهاز يعمل على جميع الأجهزة الطبية","جميع الأجهزة الطبية تعمل",
+    "عربة الطوارئ مغلقة","وجود فحص يومي على عربة الطوارئ وجهاز الصدمات",
+    "أدوية الطوارئ متوفرة حسب القائمة المعتمدة",
+    "وضع علامة توضح تاريخ فتح الأدوية متعددة الاستخدام",
+    "وجود قائمة معتمدة توضح صلاحيات الأدوية متعددة الاستخدام",
+    "وجود مراقبة لتاريخ صلاحية الأدوية والمعدات الموجودة في غرفة الضماد",
+    "وجود آلية واضحة للتعامل مع الأدوية وأدوات الضماد التي قاربت على الانتهاء",
+    "توجد حقيبة طوارئ (تكون مغلقة ومفحوصة يومياً)",
+    "في حالة وجود سيارة إسعاف: (يوجد فحص يومي، جميع الأجهزة والمعدات مكتملة، السيارة موجودة في مظلة)"
+  ]},
+  {id:7,title:"المختبر",items:[
+    "كرسي سحب العينات مطابق للمواصفات","وجود علامات أرضية تفصل المنطقة النظيفة عن منطقة العمل",
+    "جميع المحاليل والأنابيب صالحة","التخلص الآمن من العينات"
+  ]},
+  {id:8,title:"قسم الاستقبال وتجربة المريض",items:[
+    "وجود موظفي الاستقبال","سرعة الخدمة","الالتزام بالزي الرسمي",
+    "يتم التعرف على المريض والتحقق من بياناته في جميع محطات تقديم الخدمة بالطريقة الصحيحة",
+    "يتم الحفاظ على خصوصية المراجع في جميع محطات تقديم الخدمة"
+  ]},
+  {id:9,title:"الموارد البشرية",items:[
+    "جميع الموظفين موجودون في أماكن عملهم","الالتزام بالزي الرسمي","الالتزام بساعات العمل"
+  ]},
+  {id:10,title:"مراقبة المخزون",items:[
+    "اكتمال تسجيل وترقيم العهد الطبية ومطابقتها للسجلات",
+    "اكتمال تسجيل وترقيم العهد غير الطبية ومطابقتها للسجلات",
+    "تثبيت ملصقات الباركود على جميع الأصول"
+  ]}
+];
+
+const state={};
+SECTIONS.forEach(s=>s.items.forEach((_,i)=>{state[s.id+'_'+i]={v:null,note:''}}));
+const otherNotes=Array(12).fill('');
+const team=Array(7).fill(null).map(()=>({name:'',sig:''}));
+
+function buildSections(){
+  const c=document.getElementById('sections-container');c.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const div=document.createElement('div');div.className='section-card';
+    div.innerHTML=`
+      <div class="sec-header open" id="hdr-${s.id}" onclick="toggleSec(${s.id})">
+        <div class="sec-left">
+          <div class="sec-num">${s.id}</div>
+          <div class="sec-title">${s.title}</div>
+        </div>
+        <div class="sec-right">
+          <span class="badge badge-ok" id="ok-b-${s.id}">✔ 0</span>
+          <span class="badge badge-fail" id="fail-b-${s.id}">✘ 0</span>
+          <span class="chevron open" id="chev-${s.id}">▼</span>
+        </div>
+      </div>
+      <div class="sec-body open" id="body-${s.id}">
+        ${s.items.map((item,i)=>`
+        <div class="item-row">
+          <div class="item-n">${i+1}</div>
+          <div class="item-txt">${item}</div>
+          <button class="choice-btn" id="ok-${s.id}-${i}" onclick="setVal(${s.id},${i},'ok')">✔ مطابق</button>
+          <button class="choice-btn" id="fail-${s.id}-${i}" onclick="setVal(${s.id},${i},'fail')">✘ غير مطابق</button>
+          <button class="choice-btn" id="na-${s.id}-${i}" onclick="setVal(${s.id},${i},'na')">لا ينطبق</button>
+          <input class="note-inp" placeholder="ملاحظة..." id="note-${s.id}-${i}" oninput="state['${s.id}_${i}'].note=this.value">
+        </div>`).join('')}
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function toggleSec(id){
+  const body=document.getElementById('body-'+id);
+  const hdr=document.getElementById('hdr-'+id);
+  const chev=document.getElementById('chev-'+id);
+  const open=body.classList.toggle('open');
+  hdr.classList.toggle('open',open);
+  chev.classList.toggle('open',open);
+}
+
+function setVal(sid,idx,v){
+  const key=sid+'_'+idx;
+  state[key].v=state[key].v===v?null:v;
+  ['ok','fail','na'].forEach(t=>{
+    const b=document.getElementById(t+'-'+sid+'-'+idx);
+    b.className='choice-btn'+(state[key].v===t?' a-'+t:'');
+  });
+  updateStats();
+}
+
+function updateStats(){
+  let total=0,ok=0,fail=0,na=0,answered=0;
+  SECTIONS.forEach(s=>{
+    let sok=0,sfail=0;
+    s.items.forEach((_,i)=>{
+      total++;
+      const v=state[s.id+'_'+i].v;
+      if(v==='ok'){ok++;sok++;answered++;}
+      else if(v==='fail'){fail++;sfail++;answered++;}
+      else if(v==='na'){na++;answered++;}
+    });
+    document.getElementById('ok-b-'+s.id).textContent='✔ '+sok;
+    document.getElementById('fail-b-'+s.id).textContent='✘ '+sfail;
+  });
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-ok').textContent=ok;
+  document.getElementById('s-fail').textContent=fail;
+  document.getElementById('s-na').textContent=na;
+  const pct=answered>0?Math.round((ok/answered)*100):0;
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('pct-val').textContent=pct+'%';
+}
+
+function buildOtherNotes(){
+  const c=document.getElementById('other-notes-container');c.innerHTML='';
+  for(let i=0;i<12;i++){
+    c.innerHTML+=`<div class="other-row">
+      <div class="row-n">${i+1}</div>
+      <input class="note-inp" style="width:100%" placeholder="ملاحظة ${i+1}..." oninput="otherNotes[${i}]=this.value">
+    </div>`;
+  }
+}
+
+function buildTeam(){
+  const c=document.getElementById('team-container');c.innerHTML='';
+  for(let i=0;i<7;i++){
+    c.innerHTML+=`<div class="team-row">
+      <div class="row-n">${i+1}</div>
+      <input class="note-inp" placeholder="الاسم..." oninput="team[${i}].name=this.value">
+      <input class="note-inp" placeholder="التوقيع..." oninput="team[${i}].sig=this.value">
+    </div>`;
+  }
+}
+
+function generateReport(){
+  const center=document.getElementById('f-center').value||'—';
+  const day=document.getElementById('f-day').value||'—';
+  const date=document.getElementById('f-date').value||'—';
+  let lines=[];
+  lines.push('قائمة التحقق من الامتثال لمعايير المتسوق السري');
+  lines.push('════════════════════════════════════════════════');
+  lines.push(`المركز الصحي: ${center}   |   اليوم: ${day}   |   التاريخ: ${date}`);
+  lines.push('');
+  let tOk=0,tFail=0,tNa=0,tItems=0;
+  SECTIONS.forEach(s=>{
+    let sok=0,sfail=0,sna=0;const fails=[];
+    s.items.forEach((item,i)=>{
+      tItems++;
+      const v=state[s.id+'_'+i].v;const note=state[s.id+'_'+i].note;
+      if(v==='ok'){sok++;tOk++;}
+      else if(v==='fail'){sfail++;tFail++;fails.push({n:i+1,item,note});}
+      else if(v==='na'){sna++;tNa++;}
+    });
+    lines.push(`[${s.id}] ${s.title}`);
+    lines.push(`    مطابق: ${sok}  |  غير مطابق: ${sfail}  |  لا ينطبق: ${sna}`);
+    if(fails.length){
+      lines.push('    البنود غير المطابقة:');
+      fails.forEach(f=>lines.push(`    • (${f.n}) ${f.item}${f.note?' ← '+f.note:''}`));
+    }
+    lines.push('');
+  });
+  const answered=tOk+tFail+tNa;
+  const pct=answered>0?Math.round((tOk/answered)*100):0;
+  lines.push('════════════════════════════════════════════════');
+  lines.push('الملخص الإجمالي:');
+  lines.push(`البنود المُقيَّمة: ${answered} من ${tItems}`);
+  lines.push(`مطابق: ${tOk}   |   غير مطابق: ${tFail}   |   لا ينطبق: ${tNa}`);
+  lines.push(`نسبة الامتثال: ${pct}%`);
+  const on=otherNotes.filter(n=>n.trim());
+  if(on.length){lines.push('');lines.push('ملاحظات أخرى:');on.forEach((n,i)=>lines.push(`${i+1}. ${n}`));}
+  const tf=team.filter(t=>t.name.trim());
+  if(tf.length){lines.push('');lines.push('أعضاء الفريق الزائر:');tf.forEach((t,i)=>lines.push(`${i+1}. ${t.name}${t.sig?' — '+t.sig:''}`));}
+  lines.push('');lines.push('إعداد: قطاع الصحة العامة بمحافظة الرس — وحدة الجودة');
+  document.getElementById('report-txt').textContent=lines.join('\n');
+  const box=document.getElementById('report-box');
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+function copyReport(){
+  const txt=document.getElementById('report-txt').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    showToast('تم نسخ التقرير ✔');
+    const btn=document.getElementById('copy-btn');
+    btn.textContent='✔ تم النسخ';
+    setTimeout(()=>{btn.textContent='📋 نسخ التقرير'},2000);
+  });
+}
+
+function resetAll(){
+  if(!confirm('هل تريد إعادة تعيين جميع البيانات؟')) return;
+  SECTIONS.forEach(s=>s.items.forEach((_,i)=>{state[s.id+'_'+i]={v:null,note:''}}));
+  buildSections();updateStats();
+  document.getElementById('report-box').classList.remove('show');
+  document.getElementById('f-center').value='';
+  document.getElementById('f-day').value='';
+  document.getElementById('f-date').value='';
+  showToast('تمت إعادة التعيين');
+}
+
+function printPage(){
+  generateReport();
+  setTimeout(()=>window.print(),400);
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+buildSections();
+buildOtherNotes();
+buildTeam();
+updateStats();
+</script>
+</body>
+</html>
